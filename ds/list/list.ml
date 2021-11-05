@@ -87,6 +87,19 @@ let lenght l =
     ;;
     
 let rec doublon_suite l = match l with 
-    | e1::e2::q -> e1 = e2 || doublon (e2::q)
+    | e1::e2::q -> e1 = e2 || doublon_suite (e2::q)
     | _ -> false
     ;;
+    
+let rec fusion l1 l2 = match l1, l2 with 
+    | [] , _ -> l2
+    | _ , [] -> l1
+    | e1::q1, e2::q2 -> if e1 > e2 then e2::(fusion l1 q2) else e1::(fusion l2 q1)  
+    ;;
+    
+let rec split l = match l with 
+    | e1::e2::q -> let s1, s2 = split q in e1::s1 , e2::s2 
+    | _ -> l , []
+    ;;
+    
+    
