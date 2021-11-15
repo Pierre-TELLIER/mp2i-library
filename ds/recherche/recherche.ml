@@ -1,3 +1,7 @@
+#use "../list/list.ml"
+#use "../tri/tri.ml"
+#use "../tableau/tableau.ml"
+
 let recherche_basique t element = 
     let return = ref false in
     for i = 0 to Array.length t- 1 do 
@@ -56,4 +60,33 @@ let doublon_tableau t =
         else t_verif.(t.(i)) <- 1
     done;
     !return 
+    ;;
+
+
+(*recherche si il y a une tranche dans le tableau dont la somme vaux le total voulue. dans le cas ecxhéant, renvoit l'indice de debut et l'indice de fin, sinon renvoit -1,-1*)
+let tranche_x t total =
+    let mini = ref 0 in
+    let maxi = ref (Array.length t - 1) in
+    let somme = ref (somme_indice !mini !maxi t) in 
+    
+    while not (!somme = total) && mini<=maxi do
+        if !somme < total then incr mini
+        else decr maxi ;
+        somme := somme_indice !mini !maxi t
+    done; 
+    if !mini > !maxi then (-1,-1) else 
+    !mini,!maxi
+    ;;
+    
+    
+let tranche_max t = 
+    let current = ref t.(0) in
+    let best = ref t.(0) in
+    
+    for i = 0 to Array.length t -1 do 
+    current := !current + t.(i);
+    if !current > !best then best := !current 
+    
+    done;
+    !best
     ;;
