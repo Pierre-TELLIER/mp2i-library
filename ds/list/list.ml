@@ -60,7 +60,8 @@ let concat l1 l2 =
     in
     aux l3 l2
     ;;
-    
+
+(*retourne l'element maximum d'une list l. retourne une erreur si la liste est vide*)
 let maximum l =
 
     let rec aux l e = match l with 
@@ -72,31 +73,35 @@ let maximum l =
         | e::q -> aux q e  
     ;;
 
+(*equal [l1} [l2} comare each list element by element. return true if they are equal and false if they aren't*)
 let rec equal l1 l2= match l1,l2 with
     | [],[] -> true
     | [] , _ |_,[] -> false
     | e1::q1, e2::q2 -> if e1 = e2 then equal q1 q2 else false
     ;;
     
-    
+(*return the lenght of the list l*)
 let lenght l =
     let rec aux l e = match l with 
     | [] -> e
     | _::q -> aux q (e+1)
     in aux l 0
     ;;
-    
+
+(*return if there is the same element twice in a row*)
 let rec doublon_suite l = match l with 
     | e1::e2::q -> e1 = e2 || doublon_suite (e2::q)
     | _ -> false
     ;;
-    
+
+(*fusionne les listes l1 et l2, en la triant. utilisé dans le tri fusion*)
 let rec fusion l1 l2 = match l1, l2 with 
     | [] , _ -> l2
     | _ , [] -> l1
     | e1::q1, e2::q2 -> if e1 > e2 then e2::(fusion l1 q2) else e1::(fusion l2 q1)  
     ;;
-    
+
+(*separe une liste en deux sous listes de tailles egales. utilisé dans le tri fusion*)
 let rec split l = match l with 
     | e1::e2::q -> let s1, s2 = split q in e1::s1 , e2::s2 
     | _ -> l , []

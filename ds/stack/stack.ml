@@ -26,3 +26,27 @@ let stack_to_list s =
   let l = List.rev (make_list ()) in
   List.iter s.push l;
   l;;
+
+(* [stack_print s] shows the elements of the stack *)
+(* /!\ fonctionne que pour des éléments de type str ici /!\ *)
+let stack_print s =
+    while not (Stack.is_empty s) do (
+        let elem = Stack.pop s in
+        print_string elem ;
+        print_newline ()
+        )
+    done;;
+
+(* [hanoi n] shows the sequence of movements necessary to solve the Hanoi turns with n disks *)
+let hanoi n =
+    let p = Stack.create () in
+    Stack.push (n, 0, 2) p;
+    while not (Stack.is_empty p) do
+        let k, i, j = Stack.pop p in
+        if k = 1 then
+        begin print_int i; print_string " "; print_int j; print_newline () end
+        else let tige_intermediaire = 3-i-j in
+        Stack.push (k-1, tige_intermediaire, j) p;
+        Stack.push (1, i, j) p;
+        Stack.push (k-1, i , tige_intermediaire) p;
+    done;;

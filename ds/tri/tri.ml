@@ -1,9 +1,11 @@
+(*sort the list l  by using the tri fusion*)
 let rec tri_fusion l = match l with 
     | [] -> []
     | [e] -> [e]
     | _ -> let l1, l2 = split(l) in fusion (tri_fusion l1) (tri_fusion l2)
     ;;
-    
+
+(*sort the table t with bad complexity*)
 let tri_basique t = 
     let return = Array.make (Array.length t) 0 in
     
@@ -18,7 +20,8 @@ let tri_basique t =
     done ;
     return
     ;;
-    
+
+(*fast sort of the list l in O( n log(n) ) *)
 let rec tri_rapide l = match l with 
     | [] -> []
     | e::q -> let inf,sup = (List.filter (function x->x<e)  q) , (List.filter (function x->x>=e)  q) in (tri_rapide inf)@e::(tri_rapide sup)
